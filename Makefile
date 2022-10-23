@@ -27,9 +27,9 @@ mysql:
 
 artisan:
 	args="$@"
-	command="php artisan $args"
-	echo "$command"
-	docker exec -it laravel-app bash -c "sudo -u devuser /bin/bash -c \"$command\""
+	command="php artisan $(args)"
+	echo "$(command)"
+	docker exec -it laravel-app bash -c "sudo -u devuser /bin/bash -c \"$(command)\""
 
 composer:
 	args="$@"
