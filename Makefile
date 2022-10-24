@@ -21,18 +21,3 @@ lbash:
 
 lbash-root:
 	docker exec -it laravel-app bash -c "sudo -u root /bin/bash"
-
-mysql:
-	docker exec -it mysql-db bash -c "mysql -u dbuser -psecret db"
-
-artisan:
-	args="$@"
-	command="php artisan $(args)"
-	echo "$(command)"
-	docker exec -it laravel-app bash -c "sudo -u devuser /bin/bash -c \"$(command)\""
-
-composer:
-	args="$@"
-	command="composer $args"
-	echo "$command"
-	docker exec -it laravel-app bash -c "sudo -u devuser /bin/bash -c \"$command\""
