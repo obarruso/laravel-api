@@ -1,30 +1,15 @@
 <?php
 
-namespace App\Services\V1;
+namespace App\Filters;
 
 use Illuminate\Http\Request;
 
-class CustomerQuery
+class ApiFilter
 {
     protected $allowedParams = [
-        'name' => ['eq'],
-        'type' => ['eq'],
-        'email' => ['eq'],
-        'address' => ['eq'],
-        'city' => ['eq'],
-        'state' => ['eq'],
-        'postalCode' => ['eq', 'gt', 'lt'],
     ];
-    protected $columnMap = [
-        'postalCode' => 'postal_code',
-    ];
-    protected $operatorMap = [
-        'eq' => '=',
-        'gt' => '>',
-        'lt' => '<',
-        'gte' => '>=',
-        'lte' => '<=',
-    ];
+    protected $columnMap = [];
+    protected $operatorMap = [];
     public function transform(Request $request)
     {
         $eloQuery = [];
