@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Models\Customer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InvoiceResource extends JsonResource
@@ -15,9 +16,11 @@ class InvoiceResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
+        $customer = Customer::find($this->customer_id);
         return [
             'id' => $this->id,
-            'customerId' => $this->customer_id,
+            // 'customerId' => $this->customer_id,
+            'customer' => $customer,
             'amount' => $this->amount,
             'status' => $this->status,
             'billedDate' => $this->billed_date,

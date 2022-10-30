@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    public function invoices() {
-        return $this->belongTo(Customer::class);
+    public function customer() {
+        return $this->belongsTo(Customer::class);
     }
 }
