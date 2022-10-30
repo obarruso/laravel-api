@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Filters\V1\InvoiceFilter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreInvoiceRequest;
-use App\Http\Requests\UpdateInvoiceRequest;
 use App\Http\Resources\V1\InvoiceResource;
 use App\Http\Resources\V1\InvoiceCollection;
+use App\Http\Requests\V1\BulkStoreInvoiceRequest;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class InvoiceController extends Controller
 {
@@ -48,11 +48,19 @@ class InvoiceController extends Controller
      * @param  \App\Http\Requests\StoreInvoiceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInvoiceRequest $request)
-    {
-        //
-    }
+    // public function store(StoreInvoiceRequest $request)
+    // {
+    //     //
+    // }
 
+    public function bulkStore(BulkStoreInvoiceRequest $request)
+    {
+        $bulk = collect($request->all())->map(function($arr, $key)
+        {
+            return Arr::except($arr, ['customerId', 'billedDate', 'paidDate']);
+        });
+        Invoice::insert($bulk->toArray());
+    }
     /**
      * Display the specified resource.
      *
@@ -82,10 +90,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
-    {
-        //
-    }
+    // public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
